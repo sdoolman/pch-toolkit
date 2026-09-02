@@ -40,14 +40,14 @@ All files below are archived and verified with SHA-256 checksums to ensure file 
 
 ### 1. A-200 / A-210 & C-200 Core Lineage
 
-| Package | Size | SHA-256 Checksum | Purpose / Description | Download Link |
+| Package | Size | SHA-256 Checksum | Purpose / Description | Source |
 | :--- | :--- | :--- | :--- | :--- |
-| **`A200_recovery_091114.zip`** | 36.2 MB | `2278c1e51409f669e4ceec20ecb8d003...` | 🚨 **Emergency USB Unbricker** (A-200 / A-210) | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A200_recovery_091114.zip) |
-| **`c200_recovery_090729.zip`** | 44.1 MB | `ef3bc5f72a1633ec7c3eb238b71d4bf5...` | 🚨 **Emergency USB Unbricker** (C-200) | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/c200_recovery_090729.zip) |
-| **`02-02-100428-19-POP-411-000.zip`** | 58.5 MB | `1451fb50c3450de7e997f7bbcfcf5367...` | Factory Baseline Release (April 2010) | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/02-02-100428-19-POP-411-000.zip) |
-| **`02-04-101106-21-POP-411-000.zip`** | 64.5 MB | `dbd9d251a8d585348981f4f56f14061a...` | 🌉 **Required Bridge / Step Firmware** (Nov 2010) | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/02-04-101106-21-POP-411-000.zip) |
-| **`03-04-120807-21-POP-411-000.zip`** | 66.2 MB | `2e8e78bc19ec335d1db9675ad7040fdc...` | Production Stable Firmware (NMJ v2, Transmission 2.13) | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/03-04-120807-21-POP-411-000.zip) |
-| **`A200_A210_03-05-130708-21-POP-411-000.7z`** | 76.9 MB | `88241f259ccc7bc4a7375bf42ec313e6...` | 🏁 **Final Official Syabas Release** (July 2013) | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A200_A210_03-05-130708-21-POP-411-000.7z) |
+| **`A200_recovery_091114.zip`** | 36.2 MB | `2278c1e51409f669e4ceec20ecb8d003...` | 🚨 **Emergency USB Unbricker** (A-200 / A-210) | Community Vault / Archive.org |
+| **`c200_recovery_090729.zip`** | 44.1 MB | `ef3bc5f72a1633ec7c3eb238b71d4bf5...` | 🚨 **Emergency USB Unbricker** (C-200) | Community Vault / Archive.org |
+| **`02-02-100428-19-POP-411-000.zip`** | 58.5 MB | `1451fb50c3450de7e997f7bbcfcf5367...` | Factory Baseline Release (April 2010) | Community Vault / Archive.org |
+| **`02-04-101106-21-POP-411-000.zip`** | 64.5 MB | `dbd9d251a8d585348981f4f56f14061a...` | 🌉 **Required Bridge / Step Firmware** (Nov 2010) | Community Vault / Archive.org |
+| **`03-04-120807-21-POP-411-000.zip`** | 66.2 MB | `2e8e78bc19ec335d1db9675ad7040fdc...` | Production Stable Firmware (NMJ v2, Transmission 2.13) | Community Vault / Archive.org |
+| **`A200_A210_03-05-130708-21-POP-411-000.7z`** | 76.9 MB | `88241f259ccc7bc4a7375bf42ec313e6...` | 🏁 **Final Official Syabas Release** (July 2013) | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
 
 ---
 
@@ -55,23 +55,23 @@ All files below are archived and verified with SHA-256 checksums to ensure file 
 
 Preserved courtesy of the [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi) repository:
 
-| Model | SoC / Hardware | Archive Package | Size | SHA-256 Checksum | Download |
+| Model | SoC / Hardware | Archive Package | Size | SHA-256 Checksum | Source |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **A-100** | SMP8635 | `A100_01-17-110314-15-POP-402-000.7z` | 56.9 MB | `e5563a45607b0eb5...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A100_01-17-110314-15-POP-402-000.7z) |
-| **A-110** | SMP8635 | `A110_01-17-110314-15-POP-403-000.7z` | 56.9 MB | `7e2f02e4e5bd57e3...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A110_01-17-110314-15-POP-403-000.7z) |
-| **A-200 / A-210** | SMP8643 | `A200_A210_03-05-130708-21-POP-411-000.7z` | 76.9 MB | `88241f259ccc7bc4...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A200_A210_03-05-130708-21-POP-411-000.7z) |
-| **A-300** | SMP8647 | `A300_05-03-140117-23-POP-421-000.7z` | 85.5 MB | `3b049d04188ce6b2...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A300_05-03-140117-23-POP-421-000.7z) |
-| **A-400** | SMP8911 | `A400_05-08-150120-25-pop-422-802.7z` | 71.3 MB | `4b5c80b09a2c358f...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A400_05-08-150120-25-pop-422-802.7z) |
-| **A-410** | SMP8911 | `A410_05-08-131101-25-POP-425-802.7z` | 71.2 MB | `f72a3e945903c7ea...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A410_05-08-131101-25-POP-425-802.7z) |
-| **A-500** | SMP8758 | `A500_01-05-161214-25-POP-432-802.7z` | 77.4 MB | `46bab1ecafe701b2...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A500_01-05-161214-25-POP-432-802.7z) |
-| **A-500 Pro** | SMP8758 | `A500Pro_01-05-161214-25-POP-430-802.7z` | 77.4 MB | `57f4f51e39b3ff89...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A500Pro_01-05-161214-25-POP-430-802.7z) |
-| **A-500U** | SMP8758 | `A500U_01-05-161214-25-POP-433-802.7z` | 77.4 MB | `3a3f67d1e1a72a11...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A500U_01-05-161214-25-POP-433-802.7z) |
-| **C-200** | SMP8643 | `C200_03-05-130708-21-POP-408-000.7z` | 84.1 MB | `2c91bdb5c458bb03...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/C200_03-05-130708-21-POP-408-000.7z) |
-| **C-300** | SMP8647 | `C300_05-03-140117-23-POP-420-000.7z` | 88.8 MB | `4c34067a8fd7e0ca...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/C300_05-03-140117-23-POP-420-000.7z) |
-| **VTEN** | SMP8757 | `VTEN_01-05-161214-25-POP-427-802.7z` | 75.2 MB | `6e7886a34e815e12...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/VTEN_01-05-161214-25-POP-427-802.7z) |
-| **PopBox V8**| SMP8670 | `V8_05-03-131128-23-POP-418-000.7z` | 60.1 MB | `d9b4f85c8a599661...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/V8_05-03-131128-23-POP-418-000.7z) |
-| **S-210** | SMP8635 | `S210_31-15-090416-14-POP-406-000.7z` | 22.3 MB | `132b9f9aac3f1d3c...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/S210_31-15-090416-14-POP-406-000.7z) |
-| **S-300** | SMP8647 | `S300_05-03-140114-23-POP-419-000.7z` | 44.5 MB | `a4415907a411cf46...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/S300_05-03-140114-23-POP-419-000.7z) |
+| **A-100** | SMP8635 | `A100_01-17-110314-15-POP-402-000.7z` | 56.9 MB | `e5563a45607b0eb5...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **A-110** | SMP8635 | `A110_01-17-110314-15-POP-403-000.7z` | 56.9 MB | `7e2f02e4e5bd57e3...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **A-200 / A-210** | SMP8643 | `A200_A210_03-05-130708-21-POP-411-000.7z` | 76.9 MB | `88241f259ccc7bc4...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **A-300** | SMP8647 | `A300_05-03-140117-23-POP-421-000.7z` | 85.5 MB | `3b049d04188ce6b2...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **A-400** | SMP8911 | `A400_05-08-150120-25-pop-422-802.7z` | 71.3 MB | `4b5c80b09a2c358f...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **A-410** | SMP8911 | `A410_05-08-131101-25-POP-425-802.7z` | 71.2 MB | `f72a3e945903c7ea...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **A-500** | SMP8758 | `A500_01-05-161214-25-POP-432-802.7z` | 77.4 MB | `46bab1ecafe701b2...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **A-500 Pro** | SMP8758 | `A500Pro_01-05-161214-25-POP-430-802.7z` | 77.4 MB | `57f4f51e39b3ff89...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **A-500U** | SMP8758 | `A500U_01-05-161214-25-POP-433-802.7z` | 77.4 MB | `3a3f67d1e1a72a11...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **C-200** | SMP8643 | `C200_03-05-130708-21-POP-408-000.7z` | 84.1 MB | `2c91bdb5c458bb03...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **C-300** | SMP8647 | `C300_05-03-140117-23-POP-420-000.7z` | 88.8 MB | `4c34067a8fd7e0ca...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **VTEN** | SMP8757 | `VTEN_01-05-161214-25-POP-427-802.7z` | 75.2 MB | `6e7886a34e815e12...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **PopBox V8**| SMP8670 | `V8_05-03-131128-23-POP-418-000.7z` | 60.1 MB | `d9b4f85c8a599661...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **S-210** | SMP8635 | `S210_31-15-090416-14-POP-406-000.7z` | 22.3 MB | `132b9f9aac3f1d3c...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **S-300** | SMP8647 | `S300_05-03-140114-23-POP-419-000.7z` | 44.5 MB | `a4415907a411cf46...` | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
 
 ---
 
@@ -117,8 +117,7 @@ If your Popcorn Hour won't boot, shows a black screen, or the front power LED is
 
 ---
 
-## 🏛️ Digital Preservation Mirror
+## 🏛️ Digital Preservation Mirrors
 
-* **GitHub Release Vault:** [https://github.com/sdoolman/pch-toolkit/releases/tag/firmware-vault](https://github.com/sdoolman/pch-toolkit/releases/tag/firmware-vault)
-* **Internet Archive Collection:** [Popcorn Hour Preservation Vault (archive.org)](https://archive.org/details/popcorn-hour-firmware-vault)
-* **NMT CSI Community Packages:** Preserved at [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi).
+* **NMT CSI & Firmware Git Mirror:** [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi) (Fleet firmware packages and 146 CSI applications).
+* **Internet Archive Sync Tool:** Run `python toolchain/archive_org_sync.py` to mirror all local firmware images and CSI packages to archive.org.

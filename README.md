@@ -101,17 +101,16 @@ We solved this by compiling all tools statically against `musl libc`:
 
 ---
 
-## 💾 Firmware, Bridge & Emergency Recovery Vault
+## 💾 Firmware, Bridge & Emergency Recovery Guide
 
 Looking for original Syabas firmware, the critical A-200/A-210 bridge update, or emergency recovery tools?
 
-Because Cloud Media's official update servers are permanently offline, we preserve verified firmware archives and un-bricking packages in a dedicated repository release:
+Because Cloud Media's official update servers are permanently offline, we document and reference verified firmware archives and un-bricking packages:
 
-* 🚨 **Emergency USB Unbricking Images:** Rescue soft-bricked units stuck on boot or blinking orange/red LEDs.
+* 🚨 **Emergency USB Unbricking Images:** Rescue soft-bricked units stuck on boot or blinking orange/red LEDs using `recovery-image.bin`.
 * 🌉 **Required Bridge Firmware:** Step-by-step upgrade path (`02-04-101106-21-POP-411-000`) required for older units.
-* 🏁 **Complete Fleet Archive:** Final official firmware images for 15 Popcorn Hour models (A-100 through VTEN).
-* 📖 **Complete Step-by-Step Guide:** Read the [Firmware & Emergency Recovery Guide](docs/firmware-and-recovery.md) for upgrade flowcharts and USB recovery instructions.
-* 📦 **Direct Downloads:** Access all archived packages on the [GitHub Firmware Vault](https://github.com/sdoolman/pch-toolkit/releases/tag/firmware-vault).
+* 🏁 **Complete Fleet Coverage:** Reference tables and checksums for 15 Popcorn Hour models (A-100 through VTEN).
+* 📖 **Read the Complete Guide:** See [docs/firmware-and-recovery.md](docs/firmware-and-recovery.md) for upgrade flowcharts, recovery steps, and archive mirrors.
 
 ---
 

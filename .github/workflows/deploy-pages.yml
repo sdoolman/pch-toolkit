@@ -1,5 +1,6 @@
 name: Deploy Web Remote to GitHub Pages
 
+# Deploys web remote to GitHub Pages from development or main
 on:
   push:
     branches: [main, development]

@@ -140,16 +140,28 @@ build_curl() {
 }
 
 build_nano() {
-    echo -e "\n\033[1;32m[*] Building Nano editor...\033[0m"
+    echo -e "\n\033[1;32m[*] Building Ncurses & Nano editor...\033[0m"
     cd "$BUILD_TEMP"
-    rm -rf nano-7.2
+    if [ ! -f ncurses-6.4.tar.gz ]; then
+        curl -sSL "https://invisible-island.net/archives/ncurses/ncurses-6.4.tar.gz" -o ncurses-6.4.tar.gz
+    fi
+    rm -rf ncurses-6.4
+    tar -xzf ncurses-6.4.tar.gz
+    cd ncurses-6.4
+    ./configure --host="${CROSS_PREFIX%-}" --prefix=/tmp/ncurses_inst --without-shared --without-debug --without-ada --without-tests --without-progs --without-manpages CC="$CC" CFLAGS="-Os -static -no-pie"
+    make -j$(nproc)
+    make install.includes install.libs
+    
+    cd "$BUILD_TEMP"
     if [ ! -f nano-7.2.tar.xz ]; then
         curl -sSL "https://www.nano-editor.org/dist/v7/nano-7.2.tar.xz" -o nano-7.2.tar.xz
     fi
+    rm -rf nano-7.2
     tar -xf nano-7.2.tar.xz
     cd nano-7.2
-    ./configure --host="${CROSS_PREFIX%-}" --enable-tiny --disable-nls --disable-speller --disable-color CC="$CC" CFLAGS="-Os -static -no-pie" LDFLAGS="-static -no-pie"
-    make -j$(nproc)
+    ./configure --host="${CROSS_PREFIX%-}" --enable-tiny --disable-nls --disable-speller --disable-color CC="$CC" CPPFLAGS="-I/tmp/ncurses_inst/include -I/tmp/ncurses_inst/include/ncurses" CFLAGS="-Os -static -no-pie" LDFLAGS="-L/tmp/ncurses_inst/lib -static -no-pie"
+    make -C lib -j$(nproc)
+    make -C src -j$(nproc)
     $STRIP -s src/nano
     cp -f src/nano "$OUT_DIR/nano"
     cd -

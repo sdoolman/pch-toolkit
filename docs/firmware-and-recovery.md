@@ -40,14 +40,14 @@ All files below are archived and verified with SHA-256 checksums to ensure file 
 
 ### 1. A-200 / A-210 & C-200 Core Lineage
 
-| Package | Size | SHA-256 Checksum | Purpose / Description | Source |
+| Package | Size | SHA-256 Checksum | Purpose / Description | Archive.org Direct Download |
 | :--- | :--- | :--- | :--- | :--- |
-| **`A200_recovery_091114.zip`** | 36.2 MB | `2278c1e51409f669e4ceec20ecb8d003...` | 🚨 **Emergency USB Unbricker** (A-200 / A-210) | Community Vault / Archive.org |
-| **`c200_recovery_090729.zip`** | 44.1 MB | `ef3bc5f72a1633ec7c3eb238b71d4bf5...` | 🚨 **Emergency USB Unbricker** (C-200) | Community Vault / Archive.org |
-| **`02-02-100428-19-POP-411-000.zip`** | 58.5 MB | `1451fb50c3450de7e997f7bbcfcf5367...` | Factory Baseline Release (April 2010) | Community Vault / Archive.org |
-| **`02-04-101106-21-POP-411-000.zip`** | 64.5 MB | `dbd9d251a8d585348981f4f56f14061a...` | 🌉 **Required Bridge / Step Firmware** (Nov 2010) | Community Vault / Archive.org |
-| **`03-04-120807-21-POP-411-000.zip`** | 66.2 MB | `2e8e78bc19ec335d1db9675ad7040fdc...` | Production Stable Firmware (NMJ v2, Transmission 2.13) | Community Vault / Archive.org |
-| **`A200_A210_03-05-130708-21-POP-411-000.7z`** | 76.9 MB | `88241f259ccc7bc4a7375bf42ec313e6...` | 🏁 **Final Official Syabas Release** (July 2013) | [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi/tree/master/firmware) |
+| **`A200_recovery_091114.zip`** | 36.2 MB | `2278c1e51409f669e4ceec20ecb8d003...` | 🚨 **Emergency USB Unbricker** (A-200 / A-210) | [Download (Archive.org)](https://archive.org/download/popcorn-hour-firmware-vault/A200_recovery_091114.zip) |
+| **`c200_recovery_090729.zip`** | 44.1 MB | `ef3bc5f72a1633ec7c3eb238b71d4bf5...` | 🚨 **Emergency USB Unbricker** (C-200) | [Download (Archive.org)](https://archive.org/download/popcorn-hour-firmware-vault/c200_recovery_090729.zip) |
+| **`02-02-100428-19-POP-411-000.zip`** | 58.5 MB | `1451fb50c3450de7e997f7bbcfcf5367...` | Factory Baseline Release (April 2010) | [Download (Archive.org)](https://archive.org/download/popcorn-hour-firmware-vault/02-02-100428-19-POP-411-000.zip) |
+| **`02-04-101106-21-POP-411-000.zip`** | 64.5 MB | `dbd9d251a8d585348981f4f56f14061a...` | 🌉 **Required Bridge / Step Firmware** (Nov 2010) | [Download (Archive.org)](https://archive.org/download/popcorn-hour-firmware-vault/02-04-101106-21-POP-411-000.zip) |
+| **`03-04-120807-21-POP-411-000.zip`** | 66.2 MB | `2e8e78bc19ec335d1db9675ad7040fdc...` | Production Stable Firmware (NMJ v2, Transmission 2.13) | [Download (Archive.org)](https://archive.org/download/popcorn-hour-firmware-vault/03-04-120807-21-POP-411-000.zip) |
+| **`A200_A210_03-05-130708-21-POP-411-000.7z`** | 76.9 MB | `88241f259ccc7bc4a7375bf42ec313e6...` | 🏁 **Final Official Syabas Release** (July 2013) | [Download (Archive.org)](https://archive.org/download/popcorn-hour-firmware-vault/A200_A210_03-05-130708-21-POP-411-000.7z) |
 
 ---
 
@@ -100,10 +100,9 @@ Preserved courtesy of the [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi) 
 If your Popcorn Hour won't boot, shows a black screen, or the front power LED is stuck blinking orange/red:
 
 1. **Format a USB flash drive as FAT32 (slow/full format recommended).**
-2. **Obtain the Emergency Recovery Package (`recovery-image.bin`):**
-   * For **A-200 / A-210**: `A200_recovery_091114.zip` (contains `recovery-image.bin` for SMP8643).
-   * For **C-200**: `c200_recovery_090729.zip` (contains `recovery-image.bin` for C-200).
-   * *Available via the [Internet Archive Preservation Vault](https://archive.org/details/popcorn-hour-firmware-vault) or community mirrors.*
+2. **Download the Emergency Recovery Package (`recovery-image.bin`):**
+   * For **A-200 / A-210**: Download [**`A200_recovery_091114.zip`** (Archive.org)](https://archive.org/download/popcorn-hour-firmware-vault/A200_recovery_091114.zip).
+   * For **C-200**: Download [**`c200_recovery_090729.zip`** (Archive.org)](https://archive.org/download/popcorn-hour-firmware-vault/c200_recovery_090729.zip).
 3. **Extract `recovery-image.bin`:**
    * Place `recovery-image.bin` directly onto the **root directory** of the FAT32 USB drive.
 4. **Trigger Emergency Flash:**

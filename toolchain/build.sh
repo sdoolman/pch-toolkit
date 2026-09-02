@@ -148,9 +148,11 @@ build_nano() {
     rm -rf ncurses-6.4
     tar -xzf ncurses-6.4.tar.gz
     cd ncurses-6.4
-    ./configure --host="${CROSS_PREFIX%-}" --prefix=/tmp/ncurses_inst --without-shared --without-debug --without-ada --without-tests --without-progs --without-manpages CC="$CC" CFLAGS="-Os -static -no-pie"
+    ./configure --host="${CROSS_PREFIX%-}" --prefix=/tmp/ncurses_inst --enable-widec --with-termlib --without-shared --without-debug --without-ada --without-tests --without-progs --without-manpages CC="$CC" CFLAGS="-Os -static -no-pie"
     make -j$(nproc)
     make install.includes install.libs
+    ln -sf libncursesw.a /tmp/ncurses_inst/lib/libncurses.a 2>/dev/null || true
+    ln -sf libncursesw.a /tmp/ncurses_inst/lib/libtinfo.a 2>/dev/null || true
     
     cd "$BUILD_TEMP"
     if [ ! -f nano-7.2.tar.xz ]; then
@@ -159,7 +161,7 @@ build_nano() {
     rm -rf nano-7.2
     tar -xf nano-7.2.tar.xz
     cd nano-7.2
-    ./configure --host="${CROSS_PREFIX%-}" --enable-tiny --disable-nls --disable-speller --disable-color CC="$CC" CPPFLAGS="-I/tmp/ncurses_inst/include -I/tmp/ncurses_inst/include/ncurses" CFLAGS="-Os -static -no-pie" LDFLAGS="-L/tmp/ncurses_inst/lib -static -no-pie"
+    ./configure --host="${CROSS_PREFIX%-}" --enable-tiny --disable-nls --disable-speller --disable-color CC="$CC" CPPFLAGS="-I/tmp/ncurses_inst/include -I/tmp/ncurses_inst/include/ncursesw" CFLAGS="-Os -static -no-pie" LDFLAGS="-L/tmp/ncurses_inst/lib -static -no-pie"
     make -C lib -j$(nproc)
     make -C src -j$(nproc)
     $STRIP -s src/nano

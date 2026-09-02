@@ -8,7 +8,7 @@ echo -e "\033[1;36m🍿 Popcorn Hour Modernization Installer\033[0m"
 echo -e "\033[1;33mConnecting to Popcorn Hour at ${PCH_IP}...\033[0m"
 
 TEMP_DIR=$(mktemp -d)
-RELEASE_URL="https://github.com/stavdoo/pch-toolkit/releases/latest/download/pch-toolkit-mipsel.tar.gz"
+RELEASE_URL="https://github.com/sdoolman/pch-toolkit/releases/latest/download/pch-toolkit-mipsel.tar.gz"
 
 echo "Fetching latest MIPSEL binaries..."
 if curl -sSL -f "$RELEASE_URL" -o "$TEMP_DIR/pch-toolkit-mipsel.tar.gz"; then

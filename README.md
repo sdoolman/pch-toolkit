@@ -37,7 +37,7 @@ From any computer on your home network:
 ---
 
 ### 🥈 Path 2: USB Flash Drive Drop (Zero Terminal)
-1. Download `pch-revive-usb.zip` from the latest [GitHub Release](https://github.com/stavdoo/pch-toolkit/releases).
+1. Download `pch-revive-usb.zip` from the latest [GitHub Release](https://github.com/sdoolman/pch-toolkit/releases).
 2. Extract the contents to the root of any FAT32/NTFS USB stick.
 3. Plug the USB flash drive into the Popcorn Hour and power it on.
 

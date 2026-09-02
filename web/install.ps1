@@ -21,7 +21,7 @@ function Upload-FtpFile($localFile, $remoteName) {
 $TempDir = "$env:TEMP\pch_install"
 New-Item -ItemType Directory -Force -Path $TempDir | Out-Null
 
-$ReleaseUrl = "https://github.com/stavdoo/pch-toolkit/releases/latest/download/pch-toolkit-mipsel.tar.gz"
+$ReleaseUrl = "https://github.com/sdoolman/pch-toolkit/releases/latest/download/pch-toolkit-mipsel.tar.gz"
 $TarPath = "$TempDir\pch-toolkit-mipsel.tar.gz"
 
 Write-Host "Fetching latest MIPSEL binaries..." -ForegroundColor Green

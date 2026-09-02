@@ -105,13 +105,21 @@
             -webkit-user-select: text;
         }
 
+        .ip-bar input::placeholder {
+            color: #475569;
+        }
+
         .status-badge {
             width: 10px;
             height: 10px;
             border-radius: 50%;
+            background-color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .status-badge.connected {
             background-color: var(--green);
             box-shadow: 0 0 8px var(--green);
-            transition: all 0.2s;
         }
 
         .status-badge.sending {
@@ -279,7 +287,7 @@
         <div class="ip-bar">
             <div id="statusDot" class="status-badge" title="Device Status"></div>
             <label for="deviceIp">PCH IP:</label>
-            <input type="text" id="deviceIp" placeholder="192.168.1.4" spellcheck="false" autocomplete="off">
+            <input type="text" id="deviceIp" placeholder="e.g. 192.168.1.4" spellcheck="false" autocomplete="off">
         </div>
 
         <!-- Top System Row -->
@@ -347,44 +355,38 @@
         const toast = document.getElementById('toast');
         let toastTimeout = null;
 
-        function isLocalIp(h) {
-            return h.startsWith('192.168.') || h.startsWith('10.') || h.startsWith('172.16.') || h === 'localhost' || h === '127.0.0.1';
-        }
-
-        // Initialize IP Address:
-        const host = window.location.hostname;
+        // Load saved IP from localStorage if previously entered by user
         const savedIp = localStorage.getItem('pch_remote_ip');
-
         if (savedIp) {
             ipInput.value = savedIp;
-        } else if (host && isLocalIp(host)) {
-            ipInput.value = host;
-        } else {
-            ipInput.value = '192.168.1.4';
+            statusDot.className = 'status-badge connected';
         }
 
-        // Save immediately when typed
+        // Store user-entered IP on input
         ipInput.addEventListener('input', () => {
             const val = ipInput.value.trim();
-            if (val) localStorage.setItem('pch_remote_ip', val);
-        });
-
-        ipInput.addEventListener('change', () => {
-            const val = ipInput.value.trim();
-            if (val) localStorage.setItem('pch_remote_ip', val);
+            if (val) {
+                localStorage.setItem('pch_remote_ip', val);
+                statusDot.className = 'status-badge connected';
+            } else {
+                localStorage.removeItem('pch_remote_ip');
+                statusDot.className = 'status-badge';
+            }
         });
 
         function showToast(msg) {
             toast.textContent = msg;
             toast.classList.add('show');
             clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => toast.classList.remove('show'), 1200);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 1500);
         }
 
         async function sendCmd(key) {
             const ip = ipInput.value.trim();
             if (!ip) {
-                showToast('Enter PCH IP');
+                statusDot.className = 'status-badge error';
+                showToast('Please enter your Popcorn Hour IP');
+                ipInput.focus();
                 return;
             }
 
@@ -394,21 +396,20 @@
 
             statusDot.className = 'status-badge sending';
 
-            // Preferred: Standard fetch to Rust pch-remote daemon on port 7000
             const daemonUrl = 'http://' + ip + ':7000/api/key?key=' + encodeURIComponent(key);
             const legacyUrl = 'http://' + ip + ':8008/system?arg0=send_key&arg1=' + encodeURIComponent(key);
 
             try {
                 const res = await fetch(daemonUrl, { method: 'GET', mode: 'cors' });
                 if (res.ok) {
-                    statusDot.className = 'status-badge';
+                    statusDot.className = 'status-badge connected';
                     showToast('Key: ' + key.toUpperCase());
                     return;
                 }
             } catch (err) {
                 try {
                     await fetch(legacyUrl, { method: 'GET', mode: 'no-cors' });
-                    statusDot.className = 'status-badge';
+                    statusDot.className = 'status-badge connected';
                     showToast('Key: ' + key.toUpperCase() + ' (Legacy)');
                     return;
                 } catch (e2) {

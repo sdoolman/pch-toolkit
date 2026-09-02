@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+    <title>Popcorn Hour Remote</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --btn-bg: #334155;
+            --btn-hover: #475569;
+            --btn-active: #64748b;
+            --accent: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --red: #ef4444;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --blue: #3b82f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            touch-action: manipulation;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 16px 12px env(safe-area-inset-bottom, 16px);
+        }
+
+        .remote-container {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(59, 130, 246, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .header p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .ip-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 8px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .ip-bar label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .ip-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #60a5fa;
+            font-family: monospace;
+            font-size: 0.95rem;
+            font-weight: 600;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        .ip-bar input::placeholder {
+            color: #475569;
+        }
+
+        .status-badge {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .status-badge.connected {
+            background-color: var(--green);
+            box-shadow: 0 0 8px var(--green);
+        }
+
+        .status-badge.sending {
+            background-color: var(--yellow);
+            box-shadow: 0 0 10px var(--yellow);
+            transform: scale(1.3);
+        }
+
+        .status-badge.error {
+            background-color: var(--red);
+            box-shadow: 0 0 10px var(--red);
+        }
+
+        .btn {
+            background: var(--btn-bg);
+            color: var(--text-main);
+            border: none;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 12px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.12s ease;
+        }
+
+        .btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn:active, .btn.pressed {
+            background: var(--btn-active);
+            transform: translateY(2px) scale(0.97);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-power {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+        .btn-power:hover { background: rgba(239, 68, 68, 0.35); }
+
+        .btn-setup {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+        .btn-setup:hover { background: rgba(59, 130, 246, 0.35); }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .dpad-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            width: 210px;
+            height: 210px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dpad-btn {
+            border-radius: 14px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .dpad-up { grid-column: 2; grid-row: 1; border-radius: 18px 18px 8px 8px; }
+        .dpad-left { grid-column: 1; grid-row: 2; border-radius: 18px 8px 8px 18px; }
+        .dpad-center { 
+            grid-column: 2; 
+            grid-row: 2; 
+            background: var(--accent); 
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.95rem;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+        .dpad-center:hover { background: #2563eb; }
+        .dpad-right { grid-column: 3; grid-row: 2; border-radius: 8px 18px 18px 8px; }
+        .dpad-down { grid-column: 2; grid-row: 3; border-radius: 8px 8px 18px 18px; }
+
+        .btn-color {
+            height: 36px;
+            border-radius: 8px;
+            border: none;
+        }
+        .c-red { background: var(--red); color: white; }
+        .c-green { background: var(--green); color: white; }
+        .c-yellow { background: var(--yellow); color: #1e293b; }
+        .c-blue { background: var(--blue); color: white; }
+
+        .key-hint {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-left: 2px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .kbd-guide {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.5;
+            background: rgba(0,0,0,0.2);
+            padding: 8px 10px;
+            border-radius: 10px;
+        }
+        .kbd {
+            background: #334155;
+            color: #e2e8f0;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="remote-container">
+        <div class="header">
+            <h1>Popcorn Hour Remote</h1>
+            <p>PCH A-200 / A-210 Web Controller</p>
+        </div>
+
+        <div class="ip-bar">
+            <div id="statusDot" class="status-badge" title="Device Status"></div>
+            <label for="deviceIp">PCH IP:</label>
+            <input type="text" id="deviceIp" placeholder="e.g. 192.168.1.4" spellcheck="false" autocomplete="off">
+        </div>
+
+        <!-- Top System Row -->
+        <div class="grid-3">
+            <button class="btn btn-power" onclick="sendCmd('power')">Power</button>
+            <button class="btn" onclick="sendCmd('home')">Home <span class="key-hint">(H)</span></button>
+            <button class="btn btn-setup" onclick="sendCmd('setup')">Setup <span class="key-hint">(S)</span></button>
+        </div>
+
+        <!-- Secondary Navigation -->
+        <div class="grid-3">
+            <button class="btn" onclick="sendCmd('return')">Back <span class="key-hint">(Esc)</span></button>
+            <button class="btn" onclick="sendCmd('info')">Info <span class="key-hint">(I)</span></button>
+            <button class="btn" onclick="sendCmd('menu')">Menu <span class="key-hint">(M)</span></button>
+        </div>
+
+        <!-- D-PAD -->
+        <div class="dpad-container">
+            <button class="btn dpad-btn dpad-up" id="btn-up" onclick="sendCmd('up')">&#9650;</button>
+            <button class="btn dpad-btn dpad-left" id="btn-left" onclick="sendCmd('left')">&#9664;</button>
+            <button class="btn dpad-btn dpad-center" id="btn-enter" onclick="sendCmd('enter')">OK</button>
+            <button class="btn dpad-btn dpad-right" id="btn-right" onclick="sendCmd('right')">&#9654;</button>
+            <button class="btn dpad-btn dpad-down" id="btn-down" onclick="sendCmd('down')">&#9660;</button>
+        </div>
+
+        <!-- Color Buttons -->
+        <div class="grid-4">
+            <button class="btn btn-color c-red" onclick="sendCmd('red')">Red</button>
+            <button class="btn btn-color c-green" onclick="sendCmd('green')">Green</button>
+            <button class="btn btn-color c-yellow" onclick="sendCmd('yellow')">Yellow</button>
+            <button class="btn btn-color c-blue" onclick="sendCmd('blue')">Blue</button>
+        </div>
+
+        <!-- Volume Controls -->
+        <div class="grid-3">
+            <button class="btn" onclick="sendCmd('vol_down')">Vol -</button>
+            <button class="btn" onclick="sendCmd('mute')">Mute</button>
+            <button class="btn" onclick="sendCmd('vol_up')">Vol +</button>
+        </div>
+
+        <!-- Playback Controls -->
+        <div class="grid-4">
+            <button class="btn" onclick="sendCmd('prev')">|&#9664;</button>
+            <button class="btn" onclick="sendCmd('play')">&#9654;</button>
+            <button class="btn" onclick="sendCmd('pause')">&#10074;&#10074;</button>
+            <button class="btn" onclick="sendCmd('stop')">&#9632;</button>
+        </div>
+
+        <!-- Keyboard Guide -->
+        <div class="kbd-guide">
+            <b>PC Keyboard Shortcuts:</b><br>
+            Arrows: <span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> | 
+            Select: <span class="kbd">Enter</span> / <span class="kbd">Space</span><br>
+            Back: <span class="kbd">Esc</span> / <span class="kbd">Backspace</span> | 
+            Home: <span class="kbd">H</span> | 
+            Setup: <span class="kbd">S</span>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Command Sent</div>
+
+    <script>
+        const ipInput = document.getElementById('deviceIp');
+        const statusDot = document.getElementById('statusDot');
+        const toast = document.getElementById('toast');
+        let toastTimeout = null;
+
+        // Load saved IP from localStorage if previously entered by user
+        const savedIp = localStorage.getItem('pch_remote_ip');
+        if (savedIp) {
+            ipInput.value = savedIp;
+            statusDot.className = 'status-badge connected';
+        }
+
+        // Store user-entered IP on input
+        ipInput.addEventListener('input', () => {
+            const val = ipInput.value.trim();
+            if (val) {
+                localStorage.setItem('pch_remote_ip', val);
+                statusDot.className = 'status-badge connected';
+            } else {
+                localStorage.removeItem('pch_remote_ip');
+                statusDot.className = 'status-badge';
+            }
+        });
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 1500);
+        }
+
+        async function sendCmd(key) {
+            const ip = ipInput.value.trim();
+            if (!ip) {
+                statusDot.className = 'status-badge error';
+                showToast('Please enter your Popcorn Hour IP');
+                ipInput.focus();
+                return;
+            }
+
+            if (navigator.vibrate) {
+                try { navigator.vibrate(20); } catch(e) {}
+            }
+
+            statusDot.className = 'status-badge sending';
+
+            const daemonUrl = 'http://' + ip + ':7000/api/key?key=' + encodeURIComponent(key);
+            const legacyUrl = 'http://' + ip + ':8008/system?arg0=send_key&arg1=' + encodeURIComponent(key);
+
+            try {
+                const res = await fetch(daemonUrl, { method: 'GET', mode: 'cors' });
+                if (res.ok) {
+                    statusDot.className = 'status-badge connected';
+                    showToast('Key: ' + key.toUpperCase());
+                    return;
+                }
+            } catch (err) {
+                try {
+                    await fetch(legacyUrl, { method: 'GET', mode: 'no-cors' });
+                    statusDot.className = 'status-badge connected';
+                    showToast('Key: ' + key.toUpperCase() + ' (Legacy)');
+                    return;
+                } catch (e2) {
+                    statusDot.className = 'status-badge error';
+                    showToast('Failed to connect to ' + ip);
+                }
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (document.activeElement === ipInput) return;
+
+            let keyMapped = null;
+            let btnId = null;
+
+            switch (e.key) {
+                case 'ArrowUp': keyMapped = 'up'; btnId = 'btn-up'; break;
+                case 'ArrowDown': keyMapped = 'down'; btnId = 'btn-down'; break;
+                case 'ArrowLeft': keyMapped = 'left'; btnId = 'btn-left'; break;
+                case 'ArrowRight': keyMapped = 'right'; btnId = 'btn-right'; break;
+                case 'Enter': case ' ': keyMapped = 'enter'; btnId = 'btn-enter'; break;
+                case 'Escape': case 'Backspace': keyMapped = 'return'; break;
+                case 'h': case 'H': keyMapped = 'home'; break;
+                case 's': case 'S': keyMapped = 'setup'; break;
+                case 'i': case 'I': keyMapped = 'info'; break;
+                case 'm': case 'M': keyMapped = 'menu'; break;
+                case '1': case '2': case '3': case '4': case '5':
+                case '6': case '7': case '8': case '9': case '0':
+                    keyMapped = e.key; break;
+            }
+
+            if (keyMapped) {
+                e.preventDefault();
+                sendCmd(keyMapped);
+                if (btnId) {
+                    const btn = document.getElementById(btnId);
+                    if (btn) {
+                        btn.classList.add('pressed');
+                        setTimeout(() => btn.classList.remove('pressed'), 150);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

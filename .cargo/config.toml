@@ -1,0 +1,10 @@
+[unstable]
+build-std = ["std", "panic_abort"]
+
+[target.mipsel-unknown-linux-musl]
+linker = "/opt/cross/mipsel-linux-muslsf-cross/bin/mipsel-linux-muslsf-gcc"
+rustflags = [
+    "-C", "target-feature=+crt-static",
+    "-C", "link-arg=-static",
+    "-C", "link-arg=-no-pie"
+]

@@ -1,0 +1,83 @@
+name: Build & Release MIPS Binaries
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tool:
+        description: 'Select tool to build'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - remote
+          - stremio
+          - busybox
+          - dropbear
+          - curl
+          - nano
+          - micropython
+
+permissions:
+  contents: write
+
+jobs:
+  build-mips:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust Nightly
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rust-src
+
+      - name: Setup Musl MIPS Toolchain
+        run: |
+          sudo apt-get update && sudo apt-get install -y curl build-essential xz-utils zip libncurses-dev
+          
+          echo "[*] Downloading Bootlin musl MIPSEL cross toolchain..."
+          curl -fSL "https://toolchains.bootlin.com/downloads/releases/toolchains/mips32el/tarballs/mips32el--musl--stable-2024.05-1.tar.xz" -o /tmp/toolchain.tar.xz
+          
+          sudo tar -xf /tmp/toolchain.tar.xz -C /opt
+          export PATH="$(echo /opt/mips32el--musl--stable*/bin):$PATH"
+          mipsel-linux-gcc --version
+
+      - name: Build Selected Tool(s)
+        run: |
+          chmod +x toolchain/build.sh
+          ./toolchain/build.sh ${{ github.event.inputs.tool || 'all' }}
+
+      - name: Package Release Assets
+        run: |
+          mkdir -p dist
+          cp bootstrap/start_app.sh dist/
+          cd dist
+          tar -czf ../pch-toolkit-mipsel.tar.gz *
+          cd ..
+          
+          mkdir -p usb_dist
+          cp dist/bin/* usb_dist/ 2>/dev/null || true
+          cp bootstrap/start_app.sh usb_dist/
+          zip -r pch-revive-usb.zip usb_dist/*
+
+      - name: Create GitHub Release / Upload Assets
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            pch-toolkit-mipsel.tar.gz
+            pch-revive-usb.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Build Artifacts (CI Run)
+        uses: actions/upload-artifact@v4
+        if: "!startsWith(github.ref, 'refs/tags/')"
+        with:
+          name: pch-binaries-${{ github.event.inputs.tool || 'all' }}
+          path: dist/bin/*

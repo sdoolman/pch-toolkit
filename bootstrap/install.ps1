@@ -29,30 +29,39 @@ try {
     Invoke-WebRequest -Uri $ReleaseUrl -OutFile $TarPath -TimeoutSec 15
     tar -xzf $TarPath -C $TempDir
 } catch {
-    Write-Host "Using bundled local binaries..." -ForegroundColor Gray
-    Copy-Item "c:\Users\stavd\Downloads\pch-toolkit\bootstrap\start_app.sh" "$TempDir\start_app.sh" -Force
-    Copy-Item "c:\Users\stavd\Downloads\pch_daemon" "$TempDir\pch_daemon" -Force
+    Write-Host "Fetching bootstrap scripts..." -ForegroundColor Gray
+    $BootstrapUrl = "https://raw.githubusercontent.com/sdoolman/pch-toolkit/main/bootstrap/start_app.sh"
+    Invoke-WebRequest -Uri $BootstrapUrl -OutFile "$TempDir\start_app.sh" -TimeoutSec 10
 }
 
 # 2. Upload to Popcorn Hour
-Upload-FtpFile "$TempDir\start_app.sh" "start_app.sh"
-if (Test-Path "$TempDir\pch_daemon") {
-    Upload-FtpFile "$TempDir\pch_daemon" "pch_daemon"
+if (Test-Path "$TempDir\start_app.sh") {
+    Upload-FtpFile "$TempDir\start_app.sh" "start_app.sh"
+}
+if (Test-Path "$TempDir\bin\pch_remote") {
+    Upload-FtpFile "$TempDir\bin\pch_remote" "pch_remote"
+}
+if (Test-Path "$TempDir\bin\pch_stremio") {
+    Upload-FtpFile "$TempDir\bin\pch_stremio" "pch_stremio"
 }
 
 # 3. Trigger via Telnet
-Write-Host "Bootstrapping modern daemon & Dropbear SSH..." -ForegroundColor Green
-$tcp = New-Object System.Net.Sockets.TcpClient($PchIp, 23)
-$stream = $tcp.GetStream()
-$writer = New-Object System.IO.StreamWriter($stream)
-$writer.AutoFlush = $true
+Write-Host "Bootstrapping daemon & Dropbear SSH over Telnet..." -ForegroundColor Green
+try {
+    $tcp = New-Object System.Net.Sockets.TcpClient($PchIp, 23)
+    $stream = $tcp.GetStream()
+    $writer = New-Object System.IO.StreamWriter($stream)
+    $writer.AutoFlush = $true
 
-$cmd = "sh /share/start_app.sh`n"
-$writer.WriteLine($cmd)
-Start-Sleep -Seconds 2
-$tcp.Close()
+    $cmd = "sh /share/start_app.sh`n"
+    $writer.WriteLine($cmd)
+    Start-Sleep -Seconds 2
+    $tcp.Close()
+} catch {
+    Write-Host "Note: Telnet trigger skipped or device already running." -ForegroundColor Gray
+}
 
 Write-Host "`n🎉 Popcorn Hour Successfully Modernized!" -ForegroundColor Green
-Write-Host "📱 Web Remote:    http://$($PchIp):7000/remote" -ForegroundColor Cyan
-Write-Host "🍿 Stremio Addon:  http://$($PchIp):7000/manifest.json" -ForegroundColor Cyan
+Write-Host "📱 Web Remote:    http://$($PchIp):7000/controller" -ForegroundColor Cyan
+Write-Host "🍿 Stremio Addon:  http://$($PchIp):7001/manifest.json" -ForegroundColor Cyan
 Write-Host "🔑 Modern SSH:     ssh root@$PchIp`n" -ForegroundColor Yellow

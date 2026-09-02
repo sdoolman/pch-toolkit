@@ -55,23 +55,23 @@ All files below are archived and verified with SHA-256 checksums to ensure file 
 
 Preserved courtesy of the [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi) repository:
 
-| Model | SoC / Hardware | Archive Package | Size | SHA-256 Checksum |
-| :--- | :--- | :--- | :--- | :--- |
-| **A-100** | SMP8635 | `A100_01-17-110314-15-POP-402-000.7z` | 56.9 MB | `e5563a45607b0eb5...` |
-| **A-110** | SMP8635 | `A110_01-17-110314-15-POP-403-000.7z` | 56.9 MB | `7e2f02e4e5bd57e3...` |
-| **A-200 / A-210** | SMP8643 | `A200_A210_03-05-130708-21-POP-411-000.7z` | 76.9 MB | `88241f259ccc7bc4...` |
-| **A-300** | SMP8647 | `A300_05-03-140117-23-POP-421-000.7z` | 85.5 MB | `3b049d04188ce6b2...` |
-| **A-400** | SMP8911 | `A400_05-08-150120-25-pop-422-802.7z` | 71.3 MB | `4b5c80b09a2c358f...` |
-| **A-410** | SMP8911 | `A410_05-08-131101-25-POP-425-802.7z` | 71.2 MB | `f72a3e945903c7ea...` |
-| **A-500** | SMP8758 | `A500_01-05-161214-25-POP-432-802.7z` | 77.4 MB | `46bab1ecafe701b2...` |
-| **A-500 Pro** | SMP8758 | `A500Pro_01-05-161214-25-POP-430-802.7z` | 77.4 MB | `57f4f51e39b3ff89...` |
-| **A-500U** | SMP8758 | `A500U_01-05-161214-25-POP-433-802.7z` | 77.4 MB | `3a3f67d1e1a72a11...` |
-| **C-200** | SMP8643 | `C200_03-05-130708-21-POP-408-000.7z` | 84.1 MB | `2c91bdb5c458bb03...` |
-| **C-300** | SMP8647 | `C300_05-03-140117-23-POP-420-000.7z` | 88.8 MB | `4c34067a8fd7e0ca...` |
-| **VTEN** | SMP8757 | `VTEN_01-05-161214-25-POP-427-802.7z` | 75.2 MB | `6e7886a34e815e12...` |
-| **PopBox V8**| SMP8670 | `V8_05-03-131128-23-POP-418-000.7z` | 60.1 MB | `d9b4f85c8a599661...` |
-| **S-210** | SMP8635 | `S210_31-15-090416-14-POP-406-000.7z` | 22.3 MB | `132b9f9aac3f1d3c...` |
-| **S-300** | SMP8647 | `S300_05-03-140114-23-POP-419-000.7z` | 44.5 MB | `a4415907a411cf46...` |
+| Model | SoC / Hardware | Archive Package | Size | SHA-256 Checksum | Download |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **A-100** | SMP8635 | `A100_01-17-110314-15-POP-402-000.7z` | 56.9 MB | `e5563a45607b0eb5...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A100_01-17-110314-15-POP-402-000.7z) |
+| **A-110** | SMP8635 | `A110_01-17-110314-15-POP-403-000.7z` | 56.9 MB | `7e2f02e4e5bd57e3...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A110_01-17-110314-15-POP-403-000.7z) |
+| **A-200 / A-210** | SMP8643 | `A200_A210_03-05-130708-21-POP-411-000.7z` | 76.9 MB | `88241f259ccc7bc4...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A200_A210_03-05-130708-21-POP-411-000.7z) |
+| **A-300** | SMP8647 | `A300_05-03-140117-23-POP-421-000.7z` | 85.5 MB | `3b049d04188ce6b2...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A300_05-03-140117-23-POP-421-000.7z) |
+| **A-400** | SMP8911 | `A400_05-08-150120-25-pop-422-802.7z` | 71.3 MB | `4b5c80b09a2c358f...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A400_05-08-150120-25-pop-422-802.7z) |
+| **A-410** | SMP8911 | `A410_05-08-131101-25-POP-425-802.7z` | 71.2 MB | `f72a3e945903c7ea...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A410_05-08-131101-25-POP-425-802.7z) |
+| **A-500** | SMP8758 | `A500_01-05-161214-25-POP-432-802.7z` | 77.4 MB | `46bab1ecafe701b2...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A500_01-05-161214-25-POP-432-802.7z) |
+| **A-500 Pro** | SMP8758 | `A500Pro_01-05-161214-25-POP-430-802.7z` | 77.4 MB | `57f4f51e39b3ff89...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A500Pro_01-05-161214-25-POP-430-802.7z) |
+| **A-500U** | SMP8758 | `A500U_01-05-161214-25-POP-433-802.7z` | 77.4 MB | `3a3f67d1e1a72a11...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A500U_01-05-161214-25-POP-433-802.7z) |
+| **C-200** | SMP8643 | `C200_03-05-130708-21-POP-408-000.7z` | 84.1 MB | `2c91bdb5c458bb03...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/C200_03-05-130708-21-POP-408-000.7z) |
+| **C-300** | SMP8647 | `C300_05-03-140117-23-POP-420-000.7z` | 88.8 MB | `4c34067a8fd7e0ca...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/C300_05-03-140117-23-POP-420-000.7z) |
+| **VTEN** | SMP8757 | `VTEN_01-05-161214-25-POP-427-802.7z` | 75.2 MB | `6e7886a34e815e12...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/VTEN_01-05-161214-25-POP-427-802.7z) |
+| **PopBox V8**| SMP8670 | `V8_05-03-131128-23-POP-418-000.7z` | 60.1 MB | `d9b4f85c8a599661...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/V8_05-03-131128-23-POP-418-000.7z) |
+| **S-210** | SMP8635 | `S210_31-15-090416-14-POP-406-000.7z` | 22.3 MB | `132b9f9aac3f1d3c...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/S210_31-15-090416-14-POP-406-000.7z) |
+| **S-300** | SMP8647 | `S300_05-03-140114-23-POP-419-000.7z` | 44.5 MB | `a4415907a411cf46...` | [Download](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/S300_05-03-140114-23-POP-419-000.7z) |
 
 ---
 

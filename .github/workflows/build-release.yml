@@ -34,31 +34,14 @@ jobs:
 
       - name: Setup Musl MIPS Toolchain
         run: |
-          sudo apt-get update && sudo apt-get install -y wget curl build-essential zip
+          sudo apt-get update && sudo apt-get install -y curl build-essential xz-utils zip
           
-          echo "[*] Downloading musl MIPSEL cross toolchain..."
-          TOOLCHAIN_URLS=(
-            "https://musl.cc/mipsel-linux-muslsf-cross.tgz"
-            "https://more.musl.cc/10.2.1/x86_64-linux-musl/mipsel-linux-muslsf-cross.tgz"
-          )
+          echo "[*] Downloading Bootlin musl MIPSEL cross toolchain..."
+          curl -fSL "https://toolchains.bootlin.com/downloads/releases/toolchains/mips32el/tarballs/mips32el--musl--stable-2024.05-1.tar.xz" -o /tmp/toolchain.tar.xz
           
-          DOWNLOAD_SUCCESS=false
-          for url in "${TOOLCHAIN_URLS[@]}"; do
-            echo "Attempting download from: $url"
-            if curl -fSL --connect-timeout 20 --max-time 180 --retry 3 -o /tmp/toolchain.tgz "$url"; then
-              DOWNLOAD_SUCCESS=true
-              break
-            fi
-          done
-          
-          if [ "$DOWNLOAD_SUCCESS" = false ]; then
-            echo "[!] Failed to download musl cross toolchain"
-            exit 1
-          fi
-          
-          sudo tar -xf /tmp/toolchain.tgz -C /opt
-          export PATH="/opt/mipsel-linux-muslsf-cross/bin:$PATH"
-          mipsel-linux-muslsf-gcc --version
+          sudo tar -xf /tmp/toolchain.tar.xz -C /opt
+          export PATH="$(echo /opt/mips32el--musl--stable*/bin):$PATH"
+          mipsel-linux-gcc --version
 
       - name: Build Selected Tool(s)
         run: |

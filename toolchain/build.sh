@@ -14,20 +14,29 @@ TOOL="${1:-all}"
 OUT_DIR="$(pwd)/dist/bin"
 mkdir -p "$OUT_DIR"
 
-CROSS_PREFIX="${CROSS_PREFIX:-/opt/cross/mipsel-linux-muslsf-cross}"
-if [ -d "$CROSS_PREFIX" ]; then
-    export PATH="$CROSS_PREFIX/bin:$PATH"
-elif [ -d "/opt/mipsel-linux-muslsf-cross" ]; then
-    export PATH="/opt/mipsel-linux-muslsf-cross/bin:$PATH"
+# Auto-detect available cross-compilers in PATH or /opt
+for p in /opt/mips32el--musl--stable* /opt/mipsel-linux-muslsf-cross /opt/cross/mipsel-linux-muslsf-cross; do
+    if [ -d "$p/bin" ]; then
+        export PATH="$p/bin:$PATH"
+    fi
+done
+
+if command -v mipsel-linux-gcc >/dev/null 2>&1; then
+    export CC=mipsel-linux-gcc
+    export STRIP=mipsel-linux-strip
+elif command -v mipsel-linux-muslsf-gcc >/dev/null 2>&1; then
+    export CC=mipsel-linux-muslsf-gcc
+    export STRIP=mipsel-linux-muslsf-strip
+elif command -v mipsel-buildroot-linux-musl-gcc >/dev/null 2>&1; then
+    export CC=mipsel-buildroot-linux-musl-gcc
+    export STRIP=mipsel-buildroot-linux-musl-strip
+else
+    echo "[!] Error: No MIPSEL cross-compiler found in PATH"
+    exit 1
 fi
 
-export CC=mipsel-linux-muslsf-gcc
-export STRIP=mipsel-linux-muslsf-strip
-export AR=mipsel-linux-muslsf-ar
-export RANLIB=mipsel-linux-muslsf-ranlib
-
-echo -e "\033[1;36m==> PCH Toolchain Target: mipsel-linux-muslsf\033[0m"
-echo -e "\033[1;33m==> Selected Tool: ${TOOL}\033[0m"
+echo -e "\033[1;36m==> PCH Toolchain Compiler: $($CC --version | head -n 1)\033[0m"
+echo -e "\033[1;33m==> Selected Target: ${TOOL}\033[0m"
 
 setup_rust_musl() {
     source "$HOME/.cargo/env" 2>/dev/null || true
@@ -41,6 +50,21 @@ setup_rust_musl() {
     cp -f "$GCC_DIR"/crt*.o "$RUSTLIB/self-contained/" 2>/dev/null || true
     cp -f "$MUSL_LIB"/libc.a "$RUSTLIB/self-contained/" 2>/dev/null || true
     cp -f "$GCC_DIR"/libgcc_eh.a "$RUSTLIB/self-contained/libunwind.a" 2>/dev/null || true
+    
+    # Configure linker in .cargo/config.toml
+    mkdir -p .cargo
+    cat << EOF > .cargo/config.toml
+[unstable]
+build-std = ["std", "panic_abort"]
+
+[target.mipsel-unknown-linux-musl]
+linker = "$(which $CC)"
+rustflags = [
+    "-C", "target-feature=+crt-static",
+    "-C", "link-arg=-static",
+    "-C", "link-arg=-no-pie"
+]
+EOF
 }
 
 build_remote() {

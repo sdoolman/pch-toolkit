@@ -1,6 +1,6 @@
 # 🍿 Popcorn Hour Toolkit (`pch-toolkit`)
 
-> Modernize, Jailbreak & Develop for legacy Popcorn Hour (Syabas NMT) devices using modern **Rust** and static cross-compilation.  
+> Modernize, Develop & Revive for legacy Popcorn Hour (Syabas NMT) devices using modern **Rust** and static cross-compilation.  
 > Tested on **Popcorn Hour A-200 / A-210 / C-200** (Sigma Designs SMP8643, MIPS32r2, Linux 2.6.22).
 
 ---
@@ -73,7 +73,7 @@ mipsel-linux-muslsf-strip -s target/mipsel-unknown-linux-musl/release/pch-remote
 
 ---
 
-## 📡 Remote Installation & Over-the-Network Jailbreak Guide
+## 📡 Remote Installation & Over-the-Network Bootstrap Guide
 
 Popcorn Hour stock firmware exposes:
 1. **FTP on Port 21** (Credentials: `nmt:1234`) mapped to `/opt/sybhttpd/localhost.drives/USB_DRIVE` (or internal HDD `/share`).

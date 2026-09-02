@@ -1,6 +1,6 @@
 # 🍿 Popcorn Hour Toolkit (`pch-toolkit`)
 
-> Bring your old Popcorn Hour back to life with a modern phone remote, secure SSH, and lightweight tools.  
+> Bring your old Popcorn Hour back to life with a modern phone remote, secure SSH, and lightweight essentials.  
 > Works on **Popcorn Hour A-200, A-210, C-200, and C-300**.
 
 ---
@@ -14,10 +14,17 @@ These classic media players still have great video hardware that plays 1080p mov
 * 🔒 **Outdated security:** The box only has insecure telnet from 2009.
 * 🐢 **Heavy background services:** Legacy transmission and samba daemons eat up the box's limited RAM.
 
-**`pch-toolkit` fixes all of that:**
-1. **📱 Phone Web Remote:** Control your Popcorn Hour from any smartphone, tablet, or laptop browser over your home Wi-Fi — zero app installs needed.
-2. **🔑 Modern SSH:** Adds fast, secure Dropbear SSH (with key login and auto-logout after 1 hour of inactivity).
-3. **⚡ Ultra-Lightweight (Powered by Rust):** Replaces heavy old scripts with tiny, memory-safe binaries that use **less than 1 MB of RAM** and won't crash or slow down the player.
+**`pch-toolkit` modernizes your player with a complete suite of lightweight, statically linked tools:**
+
+| Tool | What it does | Size |
+| :--- | :--- | :--- |
+| **📱 `pch_remote`** | Lightweight **Web Remote Daemon** (port 7000) written in memory-safe Rust. | ~490 KB |
+| **🔑 `dropbear`** | Modern **SSH server** with key login and 1-hour automatic idle logout. | ~450 KB |
+| **🧰 `busybox`** | Modern **core utilities** (`wget`, `tar`, `top`, `grep`, `nc`, `tree`, `awk`, etc.). | ~1.8 MB |
+| **🌐 `curl`** | Modern **HTTP client** for fetching scripts, files, and triggering webhooks. | ~950 KB |
+| **📝 `nano`** | Friendly **terminal text editor** (no need to wrestle with ancient vi). | ~700 KB |
+| **🐍 `python`** | Standalone **MicroPython 3 runtime** for automation scripts. | ~315 KB |
+| **🎬 `pch_stremio`** | *(Optional)* Direct-Play **Stremio v3 streaming server** (port 7001). | ~510 KB |
 
 ---
 
@@ -78,19 +85,19 @@ Once set up, you can securely connect to your Popcorn Hour from your computer:
 ```bash
 ssh root@<YOUR_PCH_IP>
 ```
-* **Clean Environment:** Automatically loads modern command paths and aliases.
+* **Clean Environment:** Automatically loads modern command paths and aliases for `nano`, `curl`, `busybox`, and `python`.
 * **Auto-Logout Safety:** Sessions automatically disconnect after 1 hour of inactivity (`TMOUT=3600`) so connections don't get stuck in the background.
 
 ---
 
 ## 💡 How It Works (For the Curious)
 
-The Popcorn Hour runs an old embedded Linux kernel (**Linux 2.6.22**). Modern languages like Go crash on this old kernel because they require newer system calls. Modern C/C++ often fails due to missing shared library versions.
+The Popcorn Hour runs an embedded Linux kernel (**Linux 2.6.22** on a MIPS SMP8643 processor). Modern languages like Go crash on this old kernel because they require newer system calls. Modern C/C++ often fails due to missing shared library versions.
 
-We solved this by compiling **Rust** statically against `musl libc`:
-* **Zero Dependencies:** The compiled programs contain everything they need in a single file (~490 KB).
-* **Super Low Memory:** Runs with under 1 MB of RAM, leaving all system resources free for video playback.
-* **Rock Solid:** Memory-safe with zero memory leaks.
+We solved this by compiling all tools statically against `musl libc`:
+* **Zero Dependencies:** Every compiled program contains everything it needs in a single static file.
+* **Super Low Memory:** Uses minimal RAM, leaving all system resources free for video playback.
+* **Rock Solid:** No library conflicts or missing symbol errors.
 
 ---
 
@@ -112,11 +119,15 @@ cd pch-toolkit
 ./toolchain/build.sh all
 ```
 
-Individual tools:
+Build individual tools:
 ```bash
-./toolchain/build.sh remote         # Builds only the Web Remote daemon
-./toolchain/build.sh stremio        # Builds the optional Stremio media server
-./toolchain/build.sh micropython    # Builds a standalone Python 3 runtime
+./toolchain/build.sh remote         # Builds Rust Web Remote daemon
+./toolchain/build.sh busybox        # Builds BusyBox coreutils
+./toolchain/build.sh dropbear       # Builds Dropbear SSH server
+./toolchain/build.sh curl           # Builds static Curl client
+./toolchain/build.sh nano           # Builds static Nano text editor
+./toolchain/build.sh micropython    # Builds MicroPython 3 runtime
+./toolchain/build.sh stremio        # Builds Rust Stremio media server
 ```
 
 ---

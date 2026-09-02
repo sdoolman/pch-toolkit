@@ -15,6 +15,10 @@ on:
           - all
           - remote
           - stremio
+          - busybox
+          - dropbear
+          - curl
+          - nano
           - micropython
 
 permissions:
@@ -34,7 +38,7 @@ jobs:
 
       - name: Setup Musl MIPS Toolchain
         run: |
-          sudo apt-get update && sudo apt-get install -y curl build-essential xz-utils zip
+          sudo apt-get update && sudo apt-get install -y curl build-essential xz-utils zip libncurses-dev
           
           echo "[*] Downloading Bootlin musl MIPSEL cross toolchain..."
           curl -fSL "https://toolchains.bootlin.com/downloads/releases/toolchains/mips32el/tarballs/mips32el--musl--stable-2024.05-1.tar.xz" -o /tmp/toolchain.tar.xz

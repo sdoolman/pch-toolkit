@@ -100,9 +100,10 @@ Preserved courtesy of the [vaidyasr/nmtcsi](https://github.com/vaidyasr/nmtcsi) 
 If your Popcorn Hour won't boot, shows a black screen, or the front power LED is stuck blinking orange/red:
 
 1. **Format a USB flash drive as FAT32 (slow/full format recommended).**
-2. **Download the Emergency Recovery Package:**
-   * For **A-200 / A-210**: Download [`A200_recovery_091114.zip`](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/A200_recovery_091114.zip).
-   * For **C-200**: Download [`c200_recovery_090729.zip`](https://github.com/sdoolman/pch-toolkit/releases/download/firmware-vault/c200_recovery_090729.zip).
+2. **Obtain the Emergency Recovery Package (`recovery-image.bin`):**
+   * For **A-200 / A-210**: `A200_recovery_091114.zip` (contains `recovery-image.bin` for SMP8643).
+   * For **C-200**: `c200_recovery_090729.zip` (contains `recovery-image.bin` for C-200).
+   * *Available via the [Internet Archive Preservation Vault](https://archive.org/details/popcorn-hour-firmware-vault) or community mirrors.*
 3. **Extract `recovery-image.bin`:**
    * Place `recovery-image.bin` directly onto the **root directory** of the FAT32 USB drive.
 4. **Trigger Emergency Flash:**

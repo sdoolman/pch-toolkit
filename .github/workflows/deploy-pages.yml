@@ -2,7 +2,7 @@ name: Deploy Web Remote to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, development]
     paths:
       - 'web/**'
       - '.github/workflows/deploy-pages.yml'

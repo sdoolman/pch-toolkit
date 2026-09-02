@@ -101,6 +101,8 @@
             font-family: monospace;
             font-size: 0.95rem;
             font-weight: 600;
+            user-select: text;
+            -webkit-user-select: text;
         }
 
         .status-badge {
@@ -276,8 +278,8 @@
 
         <div class="ip-bar">
             <div id="statusDot" class="status-badge" title="Device Status"></div>
-            <label for="deviceIp">IP:</label>
-            <input type="text" id="deviceIp" value="192.168.1.4" spellcheck="false" autocomplete="off">
+            <label for="deviceIp">PCH IP:</label>
+            <input type="text" id="deviceIp" placeholder="192.168.1.4" spellcheck="false" autocomplete="off">
         </div>
 
         <!-- Top System Row -->
@@ -345,15 +347,31 @@
         const toast = document.getElementById('toast');
         let toastTimeout = null;
 
-        if (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.endsWith('pages.dev')) {
-            ipInput.value = window.location.hostname;
-        } else {
-            const savedIp = localStorage.getItem('pch_remote_ip');
-            if (savedIp) ipInput.value = savedIp;
+        function isLocalIp(h) {
+            return h.startsWith('192.168.') || h.startsWith('10.') || h.startsWith('172.16.') || h === 'localhost' || h === '127.0.0.1';
         }
 
+        // Initialize IP Address:
+        const host = window.location.hostname;
+        const savedIp = localStorage.getItem('pch_remote_ip');
+
+        if (savedIp) {
+            ipInput.value = savedIp;
+        } else if (host && isLocalIp(host)) {
+            ipInput.value = host;
+        } else {
+            ipInput.value = '192.168.1.4';
+        }
+
+        // Save immediately when typed
+        ipInput.addEventListener('input', () => {
+            const val = ipInput.value.trim();
+            if (val) localStorage.setItem('pch_remote_ip', val);
+        });
+
         ipInput.addEventListener('change', () => {
-            localStorage.setItem('pch_remote_ip', ipInput.value.trim());
+            const val = ipInput.value.trim();
+            if (val) localStorage.setItem('pch_remote_ip', val);
         });
 
         function showToast(msg) {
@@ -365,7 +383,10 @@
 
         async function sendCmd(key) {
             const ip = ipInput.value.trim();
-            if (!ip) return;
+            if (!ip) {
+                showToast('Enter PCH IP');
+                return;
+            }
 
             if (navigator.vibrate) {
                 try { navigator.vibrate(20); } catch(e) {}
@@ -373,6 +394,7 @@
 
             statusDot.className = 'status-badge sending';
 
+            // Preferred: Standard fetch to Rust pch-remote daemon on port 7000
             const daemonUrl = 'http://' + ip + ':7000/api/key?key=' + encodeURIComponent(key);
             const legacyUrl = 'http://' + ip + ':8008/system?arg0=send_key&arg1=' + encodeURIComponent(key);
 
@@ -391,7 +413,7 @@
                     return;
                 } catch (e2) {
                     statusDot.className = 'status-badge error';
-                    showToast('Failed to connect to PCH');
+                    showToast('Failed to connect to ' + ip);
                 }
             }
         }
@@ -433,5 +455,3 @@
     </script>
 </body>
 </html>
-
-<!-- release v1.0.2 -->
